@@ -187,7 +187,7 @@ sudo pacman -S stow
 make links
 ```
 
-## Enable SSH Access for the Local Network
+### Enable Local SSH Access
 
 Setup and configure the SSH daemon:
 ```
@@ -212,3 +212,20 @@ sudo systemctl restart sshd
 Now you can also copy over a private key for use with Git and other systems.
 
 At this point, you can log out of the shell on the physical machine and switch to using the server via SSH.
+
+### Permanently Mount Music Drive
+
+The music drive is at `/dev/sda`. Mount it and create an entry in `fstab`:
+```
+sudo mkdir /mnt/music
+sudo mount /dev/sda1 /mnt/music
+sudo chown chris:chris /mnt/music
+
+sudo blkid # get the UUID of the drive
+sudo vim /etc/fstab
+# add an entry like this (obviously replace the UUID):
+# /dev/sda1
+UUID=4fd71154-4b48-4d1c-be71-e803060f0b58	/mnt/music	ext4		defaults	0 2
+```
+
+The disk mount should now persist between reboots.
