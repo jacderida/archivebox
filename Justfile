@@ -8,6 +8,13 @@ pacman:
     vifm \
     yt-dlp
 
+docker:
+  #!/usr/bin/env bash
+  set -e
+  sudo pacman -S --needed docker
+  sudo systemctl enable docker
+  sudo systemctl start docker
+
 ftp-setup:
   #!/usr/bin/env bash
   set -e
@@ -27,3 +34,20 @@ ftp-setup:
   sudo usermod -aG ftp sept11
   sudo systemctl enable vsftpd
   sudo systemctl start vsftpd
+
+jenkins:
+  #!/usr/bin/env bash
+  set -e
+  sudo pacman -S --needed jenkins
+  sudo systemctl enable jenkins
+  sudo systemctl start jenkins
+
+nginx:
+  #!/usr/bin/env bash
+  set -e
+  sudo cp nginx/nginx.service /etc/systemd/system/nginx.service
+  sudo mkdir /etc/nginx-conf
+  sudo cp nginx/jenkins.conf /etc/nginx-conf
+  sudo systemctl daemon-reload
+  sudo systemctl enable nginx
+  sudo systemctl start nginx
