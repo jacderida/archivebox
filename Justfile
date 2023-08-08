@@ -2,8 +2,12 @@
 
 pacman:
   sudo pacman -S --needed \
+    ffmpeg \
     jq \
+    python-pip \
     ripgrep \
+    rtorrent \
+    transmission-cli \
     wget \
     vifm \
     yt-dlp
@@ -41,6 +45,8 @@ jenkins:
   sudo pacman -S --needed jenkins
   sudo systemctl enable jenkins
   sudo systemctl start jenkins
+  sudo usermod -aG ftp jenkins
+  sudo chsh -s /bin/bash jenkins
 
 nginx:
   #!/usr/bin/env bash
